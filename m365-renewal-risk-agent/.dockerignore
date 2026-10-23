@@ -1,0 +1,12 @@
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!app.py
+!config.py
+!engine.py
+!user_auth.py
+!gcp_auth.py
+!scripts/
+scripts/*
+!scripts/probe_aca.py

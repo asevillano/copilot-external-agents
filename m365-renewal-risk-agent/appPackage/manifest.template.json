@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.22/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.22",
+  "version": "1.0.0",
+  "id": "${APP_ID}",
+  "developer": {
+    "name": "${DEVELOPER_NAME}",
+    "websiteUrl": "${WEBSITE_URL}",
+    "privacyUrl": "${PRIVACY_URL}",
+    "termsOfUseUrl": "${TERMS_URL}"
+  },
+  "name": {
+    "short": "Renewal Risk Analyst",
+    "full": "GCP Renewal Risk Analyst for Microsoft 365 Copilot"
+  },
+  "description": {
+    "short": "Analiza riesgo de renovacion con CRM, soporte, uso y contratos en GCP.",
+    "full": "Invoca al Renewal Risk Analyst desplegado en GCP desde Microsoft 365 Copilot, sin copiar ni ejecutar su motor localmente. El agente remoto analiza CRM, soporte, uso y contratos y prepara borradores con su flujo de aprobacion original. Los mensajes y el historial se procesan en Google Cloud; el puente solo conserva identificadores de sesion."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#2563EB",
+  "copilotAgents": {
+    "customEngineAgents": [
+      {
+        "id": "${BOT_ID}",
+        "type": "bot"
+      }
+    ]
+  },
+  "bots": [
+    {
+      "botId": "${BOT_ID}",
+      "scopes": ["personal"],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "validDomains": ["${BOT_DOMAIN}", "token.botframework.com"]
+}

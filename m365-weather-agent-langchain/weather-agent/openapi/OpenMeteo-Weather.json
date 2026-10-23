@@ -1,0 +1,55 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenMeteo Weather",
+    "version": "1.0"
+  },
+  "host": "api.open-meteo.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/forecast": {
+      "get": {
+        "summary": "Get weather forecast",
+        "description": "Get current weather from coordinates",
+        "operationId": "getWeatherForecast",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "current_weather",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}

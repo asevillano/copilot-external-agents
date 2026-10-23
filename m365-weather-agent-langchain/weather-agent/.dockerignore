@@ -1,0 +1,10 @@
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!server.py
+!agent.py
+!openapi_tools.py
+!entra_auth.py
+!openapi/
+!openapi/*.json

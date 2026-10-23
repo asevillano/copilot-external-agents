@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.22/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.22",
+  "version": "1.0.0",
+  "id": "${APP_ID}",
+  "developer": {
+    "name": "${DEVELOPER_NAME}",
+    "websiteUrl": "${WEBSITE_URL}",
+    "privacyUrl": "${PRIVACY_URL}",
+    "termsOfUseUrl": "${TERMS_URL}"
+  },
+  "name": {
+    "short": "Weather Assistant (LangChain)",
+    "full": "LangChain Weather Assistant via MCP for Microsoft 365 Copilot"
+  },
+  "description": {
+    "short": "Tiempo actual de cualquier ciudad, con un agente LangChain via MCP.",
+    "full": "Invoca desde Microsoft 365 Copilot a un agente LangChain desplegado en Azure Container Apps y expuesto con MCP. El agente geolocaliza la ciudad y devuelve el tiempo actual con OpenMeteo, en el idioma del usuario."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#059669",
+  "copilotAgents": {
+    "customEngineAgents": [
+      {
+        "id": "${BOT_ID}",
+        "type": "bot"
+      }
+    ]
+  },
+  "bots": [
+    {
+      "botId": "${BOT_ID}",
+      "scopes": ["personal"],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "validDomains": ["${BOT_DOMAIN}", "token.botframework.com"]
+}

@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!app.py
+!config.py
+!user_auth.py
+!mcp_engine.py

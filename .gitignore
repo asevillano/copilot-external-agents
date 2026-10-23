@@ -1,0 +1,24 @@
+# Python
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and environment-specific configuration (templates: .env.example)
+.env
+.env.*
+!.env.example
+
+# Local deployment state, credentials caches and build output
+data/
+dist/
+*.zip
+
+# Editors, OS and Office lock files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*

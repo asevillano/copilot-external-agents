@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!server.py
+!agent_engine.py
+!gcp_auth.py
+!entra_auth.py
