@@ -2,7 +2,7 @@
 
 Segunda versión de la integración de **Microsoft 365 Copilot** con el *Renewal Risk
 Analyst* de **Google Cloud Vertex AI Agent Engine**. A diferencia de la
-[versión directa](../m365-renewal-risk-agent/README.md), el puente **no habla con
+[versión directa](../m365-copilot-gcp-agent/README.md), el puente **no habla con
 Agent Engine**: invoca al agente a través de un **servidor MCP** desplegado en Azure
 Container Apps. Las dos versiones conviven y se pueden enseñar a la vez.
 
@@ -153,7 +153,7 @@ Notas:
 ## 5. Guía de despliegue
 
 Requisitos y fases comunes, como Bot, canales y paquete M365, en la
-[guía de la versión directa](../m365-renewal-risk-agent/README.md#4-guía-paso-a-paso-para-el-cliente).
+[guía de la versión directa](../m365-copilot-gcp-agent/README.md#4-guía-paso-a-paso-para-el-cliente).
 Lo específico de esta versión. Antes, copiar [.env.example](.env.example) a `.env`
 (excluido de git) y rellenar suscripción, tenant, usuarios autorizados, ACR y el recurso
 de GCP; los scripts lo leen al arrancar. En los comandos, `<sub>`, `<tenant>` y `<acr>`
@@ -255,7 +255,7 @@ el MCP sabe qué consumidor llama, autenticado por Entra.
 ```
 
 Muestra el mensaje recibido, las herramientas del agente (CRM, uso, contratos) y su
-respuesta. La sección 5 de la [versión directa](../m365-renewal-risk-agent/README.md#5-demostración-ver-en-gcp-cómo-llegó-la-petición-y-qué-respondió)
+respuesta. La sección 5 de la [versión directa](../m365-copilot-gcp-agent/README.md#5-demostración-ver-en-gcp-cómo-llegó-la-petición-y-qué-respondió)
 explica la consola de GCP y los logs de auditoría. Aquí `principalSubject` es la
 identidad del **MCP**, no la del puente.
 

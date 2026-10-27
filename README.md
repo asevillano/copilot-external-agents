@@ -10,8 +10,8 @@ los mensajes de Copilot a través de **Azure Bot Service** y los reenvía al age
 
 | Carpeta | Agente externo | Cómo llega el puente al agente | Identidad hacia el agente |
 |---|---|---|---|
-| [m365-renewal-risk-agent](m365-renewal-risk-agent/README.md) | *Renewal Risk Analyst* (Google ADK) en **Vertex AI Agent Engine** | REST de Agent Engine, directamente desde el puente | Identidad administrada de Azure federada con GCP (Workload Identity Federation), sin claves |
-| [m365-renewal-risk-agent-mcp](m365-renewal-risk-agent-mcp/README.md) | El mismo agente de GCP | **Servidor MCP** en ACA (*agente como herramienta*); solo el MCP tiene acceso a GCP | Entra ID (rol `Agent.Invoke`) del puente al MCP; WIF del MCP a GCP |
+| [m365-copilot-gcp-agent](m365-copilot-gcp-agent/README.md) | *Renewal Risk Analyst* (Google ADK) en **Vertex AI Agent Engine** | REST de Agent Engine, directamente desde el puente | Identidad administrada de Azure federada con GCP (Workload Identity Federation), sin claves |
+| [m365-copilot-gcp-agent-mcp](m365-copilot-gcp-agent-mcp/README.md) | El mismo agente de GCP | **Servidor MCP** en ACA (*agente como herramienta*); solo el MCP tiene acceso a GCP | Entra ID (rol `Agent.Invoke`) del puente al MCP; WIF del MCP a GCP |
 | [m365-weather-agent-langchain](m365-weather-agent-langchain/README.md) | Asistente del tiempo con **LangChain** y `gpt-5.6-luna` (Microsoft Foundry) en ACA | **MCP** expuesto por el propio agente, en otro entorno ACA | Entra ID (rol `Agent.Invoke`); el agente llama al modelo con su identidad administrada |
 
 Cada carpeta es un proyecto independiente, con su guía paso a paso, su arquitectura, su
@@ -89,7 +89,7 @@ Reglas que cumplen los clientes de este repositorio:
   guarda estado y puede reiniciarse sin perder conversaciones.
 - **Errores como excepciones.** `app.py` las captura, cierra el *stream* y muestra al usuario
   una referencia, sin detalles internos. No hay reintentos automáticos.
-- **Serializar los turnos del mismo chat** si el backend no lo hace. [engine.py](m365-renewal-risk-agent/engine.py)
+- **Serializar los turnos del mismo chat** si el backend no lo hace. [engine.py](m365-copilot-gcp-agent/engine.py)
   usa un `asyncio.Lock` por clave; por eso ese puente funciona con una sola réplica.
 - **Credenciales sin claves.** Identidad administrada de Azure, federada con la nube del agente
   (Workload Identity Federation) o con un token Entra para una API propia.
@@ -98,14 +98,14 @@ Reglas que cumplen los clientes de este repositorio:
 
 1. **Elegir cómo se llega al agente.**
    - **Por MCP (recomendado).** Si el agente expone MCP, o se le pone delante un adaptador MCP
-     como [mcp-server](m365-renewal-risk-agent-mcp/mcp-server), el puente **no se modifica**:
+     como [mcp-server](m365-copilot-gcp-agent-mcp/mcp-server), el puente **no se modifica**:
      se reutiliza [mcp_engine.py](m365-weather-agent-langchain/bridge/mcp_engine.py)
      cambiando `ASK_TOOL` (la herramienta debe aceptar `message` y `conversation_id`, y
      existir otra `reset_conversation`), y se configuran `MCP_SERVER_URL` y
      `MCP_TOKEN_RESOURCE`. Ver el contrato en la sección *Contrato MCP* de
      [m365-weather-agent-langchain](m365-weather-agent-langchain/README.md).
    - **Por la API del agente.** Escribir un cliente que cumpla el contrato anterior, como
-     [engine.py](m365-renewal-risk-agent/engine.py) para Vertex AI Agent Engine.
+     [engine.py](m365-copilot-gcp-agent/engine.py) para Vertex AI Agent Engine.
 2. **Copiar el puente** de `m365-weather-agent-langchain/bridge`, con sus pruebas, el
    manifiesto, el `Dockerfile` e `infra/bridge.bicep`.
 3. **Adaptar los textos** de `app.py` y el manifiesto (nombre, descripción, color, ruta del
@@ -119,7 +119,7 @@ Reglas que cumplen los clientes de este repositorio:
    tenant* con redirect `https://token.botframework.com/.auth/web/redirect` y permiso
    delegado `User.Read`; Bot F0 con los canales **Microsoft Teams** y **Microsoft 365
    Extensions**, y una conexión OAuth *Azure AD v2*. Las fases 2 y 3 de la
-   [guía de la versión directa](m365-renewal-risk-agent/README.md#4-guía-paso-a-paso-para-el-cliente)
+   [guía de la versión directa](m365-copilot-gcp-agent/README.md#4-guía-paso-a-paso-para-el-cliente)
    lo detallan, y [deploy_weather_stack.py](m365-weather-agent-langchain/scripts/deploy_weather_stack.py)
    lo automatiza.
 6. **Desplegar en Azure Container Apps** con la imagen por digest y configurar el
@@ -160,7 +160,7 @@ Cada proyecto tiene su entorno virtual y sus pruebas, que usan servicios simulad
 necesitan `.env`:
 
 ```powershell
-cd m365-renewal-risk-agent      # o m365-renewal-risk-agent-mcp, m365-weather-agent-langchain
+cd m365-copilot-gcp-agent      # o m365-copilot-gcp-agent-mcp, m365-weather-agent-langchain
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m ruff check .
 ```

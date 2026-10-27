@@ -2,8 +2,8 @@
 
 Tercera versión de la integración de **Microsoft 365 Copilot** con agentes externos,
 independiente de las dos anteriores
-([versión directa a GCP](../m365-renewal-risk-agent/README.md) y
-[versión MCP a GCP](../m365-renewal-risk-agent-mcp/README.md)).
+([versión directa a GCP](../m365-copilot-gcp-agent/README.md) y
+[versión MCP a GCP](../m365-copilot-gcp-agent-mcp/README.md)).
 
 Aquí el agente es un **agente LangChain desplegado en Azure Container Apps** y expuesto
 mediante **MCP** en su propio entorno ACA. El puente de M365 vive en **otro entorno ACA
@@ -164,7 +164,7 @@ igual que en la versión MCP: asignar a su identidad el rol `Agent.Invoke` de la
 ## 5. Despliegue
 
 Los requisitos y las fases comunes, como el Bot, los canales y el paquete M365, están
-en la [guía de la versión directa](../m365-renewal-risk-agent/README.md#4-guía-paso-a-paso-para-el-cliente).
+en la [guía de la versión directa](../m365-copilot-gcp-agent/README.md#4-guía-paso-a-paso-para-el-cliente).
 Antes, copiar [.env.example](.env.example) a `.env` (excluido de git) y rellenar
 suscripción, tenant, usuarios autorizados, ACR y recurso de Foundry; el script lo lee al
 arrancar. En los comandos, `<sub>`, `<acr>` y `<foundry>` son esos mismos valores.
